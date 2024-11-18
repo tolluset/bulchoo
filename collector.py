@@ -56,6 +56,7 @@ def main():
     feeds = get_feeds()
 
     feeds_contents = []
+    new_blogs = 0
     for feed in feeds:
         blog = build_blog(feed)
         print(f"🚀 : parser.py:41: blog={blog}")
@@ -63,6 +64,8 @@ def main():
         if blog.id in existing_ids:
             print(f"🚀 : parser.py:45: blog.id={blog.id} is already existed.")
             continue
+
+        new_blogs += 1
 
         markdown_content = get_markdown_content(blog.link)
 
@@ -76,6 +79,7 @@ def main():
         ids = [item.metadata["id"] for item in feeds_contents]
         vs.add_documents(feeds_contents, ids=ids)
 
+    print(f"🚀 : parser.py:85: new_blogs={new_blogs}")
     return
 
 
