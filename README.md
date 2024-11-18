@@ -25,3 +25,8 @@ To run the service in Docker, follow these steps:
    SLACK_BOT_TOKEN=<your_slack_bot_token>
    SLACK_CHANNEL=<your_slack_channel>
    ```
+
+
+## Example
+
+![스크린샷 2024-11-19 오전 7 54 52](https://github.com/user-attachments/assets/44798166-858e-4148-a392-bf67fc43d781)
