@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "tbw"
+version = "0.1.0"
+description = ""
+authors = ["tolluset <dlqud19@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+feedparser = "^6.0.11"
+beautifulsoup4 = "^4.12.3"
+html2text = "^2024.2.26"
+python-dotenv = "^1.0.1"
+langchain-openai = "^0.2.8"
+langchain-elasticsearch = "^0.3.0"
+langchain-core = "^0.3.19"
+elasticsearch = "^8.16.0"
+slack-sdk = "^3.33.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
