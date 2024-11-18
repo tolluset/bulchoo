@@ -15,8 +15,9 @@ from langchain_core.documents import Document
 dotenv.load_dotenv()
 
 base_url = os.getenv("BASE_URL")
-es_cert_fingerprint = os.getenv("ES_CERT_FINGERPRINT")
-es_password = os.getenv("ES_PASSWORD")
+es_host = os.getenv("ELASTIC_HOST")
+es_cert_fingerprint = os.getenv("ELASTIC_CERT_FINGERPRINT")
+es_password = os.getenv("ELASTIC_PASSWORD")
 
 llm = ChatOpenAI(model="gpt-4o")
 
@@ -25,7 +26,7 @@ embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 
 es = Elasticsearch(
-    "https://localhost:9200/",
+    es_host,
     ssl_assert_fingerprint=es_cert_fingerprint,
     basic_auth=("elastic", es_password),
 )
@@ -50,6 +51,7 @@ class Blog:
 
 def main():
     existing_ids = get_existing_ids()
+    print(f"🚀 : collector.py:54: existing_ids={existing_ids}")
 
     feeds = get_feeds()
 
@@ -71,8 +73,8 @@ def main():
 
         feeds_contents.append(doc)
 
-    ids = [item.metadata["id"] for item in feeds_contents]
-    vs.add_documents(feeds_contents, ids=ids)
+        ids = [item.metadata["id"] for item in feeds_contents]
+        vs.add_documents(feeds_contents, ids=ids)
 
     return
 
@@ -83,7 +85,12 @@ def get_existing_ids():
         "sort": [{"metadata.date": {"order": "desc"}}],
         "_source": ["_id"],
     }
-    res = es.search(index="blogs", body=query)
+    try:
+        res = es.search(index="blogs", body=query)
+    except Exception as e:
+        print(f"🚀 : parser.py:65: e={e}")
+        return []
+
     hits = res["hits"]["hits"]
     ids = [hit["_id"] for hit in hits]
 

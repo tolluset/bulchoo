@@ -11,8 +11,11 @@ from slack_sdk.errors import SlackApiError
 dotenv.load_dotenv()
 
 base_url = os.getenv("BASE_URL")
-es_cert_fingerprint = os.getenv("ES_CERT_FINGERPRINT")
-es_password = os.getenv("ES_PASSWORD")
+
+es_host = os.getenv("ELASTIC_HOST")
+es_cert_fingerprint = os.getenv("ELASTIC_CERT_FINGERPRINT")
+es_password = os.getenv("ELASTIC_PASSWORD")
+
 slack_bot_token = os.getenv("SLACK_BOT_TOKEN")
 slack_channel = os.getenv("SLACK_CHANNEL")
 
@@ -23,7 +26,7 @@ llm = ChatOpenAI(model="gpt-4o").bind(response_format={"type": "json_object"})
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 es = Elasticsearch(
-    "https://localhost:9200/",
+    es_host,
     ssl_assert_fingerprint=es_cert_fingerprint,
     basic_auth=("elastic", es_password),
 )
