@@ -19,7 +19,7 @@ es_host = os.getenv("ELASTIC_HOST")
 es_cert_fingerprint = os.getenv("ELASTIC_CERT_FINGERPRINT")
 es_password = os.getenv("ELASTIC_PASSWORD")
 
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(model="o1-mini")
 
 
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
@@ -135,7 +135,8 @@ def get_gpt_summary(markdown_content) -> str:
     summary = llm.invoke(
         [
             (
-                "system",
+                # @TODO: o1 is in beta, system not supported. After beta change to "system".
+                "assistant",
                 "Make short summary of the blog post as three lines. TRANSLATE TO KOREAN FOR MAKE OUTPUT SUMMARY.",
             ),
             ("human", markdown_content),

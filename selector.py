@@ -20,7 +20,8 @@ slack_bot_token = os.getenv("SLACK_BOT_TOKEN")
 slack_channel = os.getenv("SLACK_CHANNEL")
 
 
-llm = ChatOpenAI(model="gpt-4o").bind(response_format={"type": "json_object"})
+# llm = ChatOpenAI(model="gpt-4o").bind(response_format={"type": "json_object"})
+llm = ChatOpenAI(model="o1-mini")
 
 
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
@@ -54,8 +55,10 @@ def main():
     recommend = llm.invoke(
         [
             (
-                "system",
-                f"Get 3 blogs from user input: {user_input}. Add llm_summary in data. You have to make output in pure JSON as {{'blogs': [...]}}. Don't translate or manipulate the origin source.",
+                # @TODO: o1 is in beta, system not supported. After beta change to "system".
+                "assistant",
+                f"Get 3 blogs from user input: {user_input}. Add llm_summary in data. You have to make output in pure JSON as {{'blogs': [...]}}. Don't translate or manipulate the origin source. No need to markdown format.",
+                # f"Get 3 blogs from user input: {user_input}. Add llm_summary in data. You have to make output in pure JSON as {{'blogs': [...]}}. Don't translate or manipulate the origin source.",
             ),
             ("human", res_text),
         ],
