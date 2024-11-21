@@ -1,6 +1,6 @@
-## today blog what?
+## bulchoo
 
-3 blogs in a day for recommendation by your interest to slack.
+Blogs in a day for recommendation by your interest to slack.
 
 ## Running the Service in Docker
 
