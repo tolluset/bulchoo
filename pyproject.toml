@@ -1,18 +1,18 @@
 [project]
-name = "tbw"
+name = "bulchoo"
 version = "0.1.0"
 description = ""
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "beautifulsoup4>=4.12.3",
-    "elasticsearch>=8.16.0",
-    "feedparser>=6.0.11",
-    "html2text>=2024.2.26",
-    "langchain-core>=0.3.19",
-    "langchain-elasticsearch>=0.3.0",
-    "langchain-openai>=0.2.8",
-    "langsmith>=0.1.143",
-    "python-dotenv>=1.0.1",
-    "slack-sdk>=3.33.3",
+  "beautifulsoup4>=4.12.3",
+  "elasticsearch>=8.16.0",
+  "feedparser>=6.0.11",
+  "html2text>=2024.2.26",
+  "langchain-core>=0.3.19",
+  "langchain-elasticsearch>=0.3.0",
+  "langchain-openai>=0.2.8",
+  "langsmith>=0.1.143",
+  "python-dotenv>=1.0.1",
+  "slack-sdk>=3.33.3",
 ]
