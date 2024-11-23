@@ -46,7 +46,11 @@ def main():
     user_input = "프론트엔드 개발자가 좋아할법한 블로그"
     now = datetime.now().strftime("%Y-%m-%d")
 
-    results = vs.similarity_search(query=user_input, k=10, filters=[{"date": now}])
+    results = vs.similarity_search(
+        query=user_input,
+        k=10,
+        filter=[{"range": {"metadata.date": {"gte": now}}}],
+    )
 
     res_text = ""
     for res in results:
