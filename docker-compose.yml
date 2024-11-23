@@ -1,3 +1,5 @@
+name: tbw
+
 services:
   collector:
     build:
