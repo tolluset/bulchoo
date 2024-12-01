@@ -76,8 +76,8 @@ def main():
 
         feeds_contents.append(doc)
 
-        ids = [item.metadata["id"] for item in feeds_contents]
-        vs.add_documents(feeds_contents, ids=ids)
+    ids = [item.metadata["id"] for item in feeds_contents]
+    vs.add_documents(feeds_contents, ids=ids)
 
     print(f"🚀 : parser.py:85: new_blogs={new_blogs}")
     return
