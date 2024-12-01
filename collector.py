@@ -9,6 +9,7 @@ import os
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_elasticsearch import ElasticsearchStore
 from elasticsearch import Elasticsearch
+from elasticsearch.helpers import BulkIndexError
 from langchain_core.documents import Document
 
 
@@ -77,7 +78,13 @@ def main():
         feeds_contents.append(doc)
 
     ids = [item.metadata["id"] for item in feeds_contents]
-    vs.add_documents(feeds_contents, ids=ids)
+
+    try:
+        vs.add_documents(feeds_contents, ids=ids)
+    except BulkIndexError as e:
+        for error in e.errors:
+            print(f"Error details: {error['index']['error']}")
+        raise
 
     print(f"🚀 : parser.py:85: new_blogs={new_blogs}")
     return
@@ -113,7 +120,7 @@ def build_blog(feed):
     link = feed["link"]
     summary = feed["summary"]
     time = feed["published_parsed"]
-    date = f"{time.tm_year}-{time.tm_mon}-{time.tm_mday}"
+    date = f"{time.tm_year}-{str(time.tm_mon).zfill(2)}-{str(time.tm_mday).zfill(2)}"
     tags = [tag["term"] for tag in feed.get("tags", [])]
 
     return Blog(id, title, link, summary, date, tags)
